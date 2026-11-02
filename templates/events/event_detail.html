@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ event.title }} | St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+    <div class="container-custom" style="max-width: 800px;">
+        <div style="margin-bottom: 2rem; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-sm);">
+            {% if event.image %}
+                <img src="{{ event.image.url }}" alt="{{ event.title }}" style="width: 100%; height: auto; max-height: 400px; object-fit: cover;">
+            {% else %}
+                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Event placeholder" style="width: 100%; height: auto; max-height: 400px; object-fit: cover;">
+            {% endif %}
+        </div>
+        
+        <h1 class="mb-2">{{ event.title }}</h1>
+        <p class="card-meta" style="font-size: 1.1rem; color: var(--secondary-color);">
+            <strong>Date & Time:</strong> {{ event.start_time|date:"F d, Y g:i A" }} 
+            {% if event.end_time %} - {{ event.end_time|date:"g:i A" }}{% endif %}
+        </p>
+        <p class="card-meta" style="font-size: 1.1rem;"><strong>Location:</strong> {{ event.location }}</p>
+        
+        <div class="mt-2" style="font-size: 1.1rem; line-height: 1.8;">
+            {{ event.description|linebreaks }}
+        </div>
+        
+        <div class="mt-2">
+            <a href="{% url 'events:event_list' %}">&larr; Back to all events</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

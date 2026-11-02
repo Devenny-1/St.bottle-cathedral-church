@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Sermons | St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<section class="hero-section"
+    style="height: 40vh; background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('https://images.unsplash.com/photo-1544427920-c49ccfaf8c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+    <div class="hero-content">
+        <h1>Sermons</h1>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container-custom">
+        <div class="grid-3">
+            {% for sermon in sermons %}
+            <div class="card-custom">
+                <div class="card-img-holder">
+                    {% if event.image %}
+                    <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                    {% else %}
+                    <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Event placeholder">
+                    {% endif %}
+                </div>
+                <div class="card-body-custom">
+                    <div class="card-meta">{{ sermon.date_delivered }} | {{ sermon.preacher }}</div>
+                    <h3><a href="{% url 'sermons:sermon_detail' sermon.pk %}">{{ sermon.title }}</a></h3>
+                    <p>{{ sermon.description|truncatewords:20 }}</p>
+                    <a href="{% url 'sermons:sermon_detail' sermon.pk %}" class="btn-custom"
+                        style="display:inline-block; margin-top: 1rem; width:auto; padding: 0.5rem 1rem;">Listen /
+                        Watch</a>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center w-100">No sermons available.</p>
+            {% endfor %}
+        </div>
+
+        {% if is_paginated %}
+        <div class="text-center mt-2">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">&laquo; Previous</a>
+            {% endif %}
+            <span class="mx-2">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next &raquo;</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

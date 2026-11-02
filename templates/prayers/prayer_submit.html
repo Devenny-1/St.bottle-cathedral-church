@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Submit Prayer Request | St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+    <div class="container-custom">
+        <div class="form-container">
+            <h2 class="text-center mb-2">Submit a Prayer Request</h2>
+            <p class="text-center mb-2">How can we pray for you today?</p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn-custom mt-2">Submit Request</button>
+            </form>
+            <div class="text-center mt-2">
+                <a href="{% url 'prayers:prayer_list' %}">&larr; Back to Prayer Wall</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

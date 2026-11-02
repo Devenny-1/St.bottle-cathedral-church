@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Give Online | St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<section class="hero-section" style="height: 40vh; background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+    <div class="hero-content">
+        <h1>Give Online</h1>
+        <p>"God loves a cheerful giver." - 2 Corinthians 9:7</p>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container-custom">
+        <div class="form-container">
+            <h2 class="text-center mb-2">Make a Donation</h2>
+            <p class="text-center mb-2">Your generosity helps us continue our mission and serve the community.</p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <!-- Placeholder for actual payment gateway integration -->
+                <button type="submit" class="btn-custom mt-2" style="background: #28a745;">Donate Now</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

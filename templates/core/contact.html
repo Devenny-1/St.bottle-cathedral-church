@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Contact Us | St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<section class="hero-section" style="height: 40vh; background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('https://images.unsplash.com/photo-1577884260029-79a4055239a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+    <div class="hero-content">
+        <h1>Contact Us</h1>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container-custom">
+        <div class="form-container">
+            <h2 class="text-center mb-2">Get in Touch</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn-custom mt-2">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

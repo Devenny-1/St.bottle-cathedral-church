@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ sermon.title }} | St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+    <div class="container-custom" style="max-width: 800px;">
+        <h1 class="mb-2">{{ sermon.title }}</h1>
+        <p class="card-meta" style="font-size: 1.1rem;">Delivered on {{ sermon.date_delivered }} by {{ sermon.preacher }}</p>
+        
+        {% if sermon.video_url %}
+        <div class="mt-2 mb-2" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;">
+            <iframe src="{{ sermon.video_url }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
+        </div>
+        {% endif %}
+        
+        {% if sermon.audio_file %}
+        <div class="mt-2 mb-2">
+            <audio controls style="width: 100%;">
+                <source src="{{ sermon.audio_file.url }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        {% endif %}
+        
+        <div class="mt-2" style="font-size: 1.1rem; line-height: 1.8;">
+            {{ sermon.description|linebreaks }}
+        </div>
+        
+        <div class="mt-2">
+            <a href="{% url 'sermons:sermon_list' %}">&larr; Back to all sermons</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

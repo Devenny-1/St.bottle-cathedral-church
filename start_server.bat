@@ -1,0 +1,9 @@
+@echo off
+echo Starting St. Bottle Cathedral Server...
+echo Activating Virtual Environment...
+call venv\Scripts\activate.bat
+
+echo Running Django Development Server...
+python manage.py runserver
+
+pause

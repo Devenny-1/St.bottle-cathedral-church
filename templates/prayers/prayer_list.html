@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Prayer Wall | St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<section class="hero-section" style="height: 40vh; background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+    <div class="hero-content">
+        <h1>Prayer Wall</h1>
+        <p>Praying for one another in love.</p>
+        <a href="{% url 'prayers:prayer_submit' %}" class="btn-custom" style="display:inline-block; width:auto; background:var(--white); color:var(--primary-color);">Submit a Request</a>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container-custom">
+        <div class="grid-3">
+            {% for prayer in prayers %}
+            <div class="card-custom" style="background: rgba(243, 156, 18, 0.05); border-left: 4px solid var(--secondary-color);">
+                <div class="card-body-custom">
+                    <div class="card-meta">Requested by {{ prayer.name }} on {{ prayer.created_at|date:"M d, Y" }}</div>
+                    <p style="font-size: 1.1rem; font-style: italic;">"{{ prayer.content }}"</p>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center w-100">No public prayer requests at this time.</p>
+            {% endfor %}
+        </div>
+        
+        {% if is_paginated %}
+        <div class="text-center mt-2">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">&laquo; Previous</a>
+            {% endif %}
+            <span class="mx-2">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next &raquo;</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

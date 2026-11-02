@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Welcome | St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="hero-content">
+        <h1>Welcome Home</h1>
+        <p>Experience the love of God in a community that cares. Join us for worship, fellowship, and spiritual growth at St. Bottle Cathedral.</p>
+        <a href="{% url 'core:about' %}" class="hero-btn">Plan a Visit</a>
+    </div>
+</section>
+
+<section class="section-padding">
+    <div class="container-custom">
+        <h2 class="section-title">Latest Sermons</h2>
+        <div class="grid-3">
+            {% for sermon in latest_sermons %}
+            <div class="card-custom">
+                <div class="card-img-holder">
+                    <!-- Placeholder pattern since sermons might not have an image -->
+                    <img src="https://images.unsplash.com/photo-1544427920-c49ccfaf8c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sermon thumbnail">
+                </div>
+                <div class="card-body-custom">
+                    <div class="card-meta">{{ sermon.date_delivered }} | {{ sermon.preacher }}</div>
+                    <h3><a href="{% url 'sermons:sermon_detail' sermon.pk %}">{{ sermon.title }}</a></h3>
+                    <p>{{ sermon.description|truncatewords:15 }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center w-100">No sermons available yet.</p>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-2">
+            <a href="{% url 'sermons:sermon_list' %}" class="btn-custom" style="display:inline-block; width:auto;">View All Sermons</a>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding" style="background-color: var(--white);">
+    <div class="container-custom">
+        <h2 class="section-title">Upcoming Events</h2>
+        <div class="grid-3">
+            {% for event in upcoming_events %}
+            <div class="card-custom">
+                <div class="card-img-holder">
+                    {% if event.image %}
+                        <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Event placeholder">
+                    {% endif %}
+                </div>
+                <div class="card-body-custom">
+                    <div class="card-meta">{{ event.start_time|date:"M d, Y g:i A" }}</div>
+                    <h3><a href="{% url 'events:event_detail' event.pk %}">{{ event.title }}</a></h3>
+                    <p>{{ event.location }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center w-100">No upcoming events scheduled.</p>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-2">
+            <a href="{% url 'events:event_list' %}" class="btn-custom" style="display:inline-block; width:auto;">View All Events</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

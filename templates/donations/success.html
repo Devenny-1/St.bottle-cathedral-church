@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Donation Successful | St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<section class="section-padding" style="min-height: 60vh; display: flex; align-items: center; justify-content: center;">
+    <div class="container-custom text-center">
+        <div style="font-size: 4rem; color: #28a745; margin-bottom: 1rem;">
+            ✓
+        </div>
+        <h1 class="mb-2">Thank You for Your Generosity!</h1>
+        <p class="mb-2" style="font-size: 1.2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Your donation has been received. Your support helps us continue our mission and make a difference in our community. May God bless you abundantly.
+        </p>
+        <a href="{% url 'core:home' %}" class="btn-custom" style="display:inline-block; width:auto;">Return to Home</a>
+    </div>
+</section>
+{% endblock %}

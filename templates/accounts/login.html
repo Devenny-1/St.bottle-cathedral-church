@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Login | St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+    <div class="container-custom">
+        <div class="form-container">
+            <h2 class="text-center mb-2">Welcome Back</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn-custom mt-2">Login</button>
+            </form>
+            <p class="text-center mt-2">Don't have an account? <a href="{% url 'accounts:register' %}">Register here</a>.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

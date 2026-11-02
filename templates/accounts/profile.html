@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Profile | St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+    <div class="container-custom">
+        <div class="form-container">
+            <h2 class="text-center mb-2">Your Profile</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn-custom mt-2">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
